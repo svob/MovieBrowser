@@ -3,7 +3,7 @@ package cz.svobodaf.moviebrowser.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import cz.svobodaf.moviebrowser.api.MovieApi
-import cz.svobodaf.moviebrowser.model.PopularItem
+import cz.svobodaf.moviebrowser.model.MovieListItem
 import cz.svobodaf.moviebrowser.model.PopularResponse
 import cz.svobodaf.moviebrowser.model.TopRatedResponse
 import retrofit2.Call
@@ -11,7 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MovieListViewModel : ViewModel() {
-    var movieList: MutableLiveData<List<PopularItem>> = MutableLiveData()
+    var movieList: MutableLiveData<List<MovieListItem>> = MutableLiveData()
 
     fun init(type: ListType) {
         if (type == ListType.POPULAR) {

@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragment.MovieListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:listitem="@layout/movie_grid_item"
+        tools:layoutManager="android.support.v7.widget.GridLayoutManager"
+        tools:spanCount="3"/>
 
 </FrameLayout>

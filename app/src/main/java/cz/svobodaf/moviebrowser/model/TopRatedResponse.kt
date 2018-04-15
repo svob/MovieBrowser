@@ -7,6 +7,6 @@ data class TopRatedResponse(@Json(name = "page")
                             @Json(name = "total_pages")
                             val totalPages: Int = 0,
                             @Json(name = "results")
-                            val results: List<PopularItem>?,
+                            val results: List<MovieListItem>?,
                             @Json(name = "total_results")
                             val totalResults: Int = 0)
