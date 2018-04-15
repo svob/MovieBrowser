@@ -3,11 +3,16 @@ package cz.svobodaf.moviebrowser.activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
+import retrofit2.Callback
 import cz.svobodaf.moviebrowser.R
+import cz.svobodaf.moviebrowser.api.MovieApi
 import cz.svobodaf.moviebrowser.fragment.FavoriteMoviesFragment
 import cz.svobodaf.moviebrowser.fragment.MovieListFragment
+import cz.svobodaf.moviebrowser.model.PopularResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
+import retrofit2.Call
+import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 
@@ -33,6 +38,8 @@ class MainActivity : BaseActivity() {
                 else -> false
             }
         }
+
+        getMovies()
     }
 
     override fun getContentLayoutResId() = R.layout.activity_main
@@ -44,5 +51,18 @@ class MainActivity : BaseActivity() {
         supportFragmentManager.beginTransaction()
                 .add(R.id.content, fragment)
                 .commit()
+    }
+
+    fun getMovies() {
+        val call = MovieApi.api.getPopularMovies(1)
+        call.enqueue(object: Callback<PopularResponse> {
+            override fun onFailure(call: Call<PopularResponse>?, t: Throwable?) {
+                // TODO: log
+            }
+
+            override fun onResponse(call: Call<PopularResponse>?, response: Response<PopularResponse>?) {
+                // TODO: successHandler
+            }
+        })
     }
 }
