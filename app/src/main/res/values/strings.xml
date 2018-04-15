@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">MovieBrowser</string>
     <string name="title_news">Nové filmy</string>
+    <string name="nav_news">Nové filmy</string>
+    <string name="nav_top_ranked">Nejlépe hodnocené</string>
+    <string name="nav_favorites">Oblíbené</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

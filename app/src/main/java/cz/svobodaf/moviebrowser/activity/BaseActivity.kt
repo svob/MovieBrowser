@@ -1,4 +1,4 @@
-package cz.svobodaf.moviebrowser
+package cz.svobodaf.moviebrowser.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
