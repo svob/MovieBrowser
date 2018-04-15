@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieBrowser</string>
+    <string name="title_news">Nové filmy</string>
 </resources>
