@@ -32,7 +32,6 @@ class DetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         favMovies = Preferences(this).favoriteMovies
 
         movie.id = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
@@ -41,6 +40,11 @@ class DetailActivity : BaseActivity() {
         movie.voteAverage = intent.getDoubleExtra(EXTRA_MOVIE_RATING, 0.0)
         movie.overview = intent.getStringExtra(EXTRA_MOVIE_DESC)
         movie.backdropPath = intent.getStringExtra(EXTRA_MOVIE_IMAGE_PATH)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setTitle(movie.title)
+        }
 
         movie_title.text = movie.title
         movie_date.text = movie.releaseDate

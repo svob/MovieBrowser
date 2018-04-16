@@ -16,7 +16,6 @@ abstract class BaseActivity : AppCompatActivity() {
         setSupportActionBar(getToolbar())
         supportActionBar?.apply {
             setDisplayShowTitleEnabled(true)
-            setDisplayHomeAsUpEnabled(true)
         }
     }
 

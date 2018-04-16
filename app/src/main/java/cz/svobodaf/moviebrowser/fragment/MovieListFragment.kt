@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -30,6 +31,11 @@ class MovieListFragment : Fragment() {
         attachObservers()
 
         val type = arguments?.getString(ARG_FRAGMENT_TYPE, MovieListViewModel.ARG_LIST_TYPE_POPULAR)
+        when (type) {
+            MovieListViewModel.ARG_LIST_TYPE_POPULAR -> (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.nav_news)
+            MovieListViewModel.ARG_LIST_TYPE_TOP_RANK -> (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.nav_top_ranked)
+        }
+
         if (savedInstanceState == null) {
             viewModel.init(type!!)
         }

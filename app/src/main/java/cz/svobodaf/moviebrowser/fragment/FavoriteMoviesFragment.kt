@@ -3,6 +3,7 @@ package cz.svobodaf.moviebrowser.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -22,6 +23,8 @@ class FavoriteMoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.nav_favorites)
 
         context?.let { context ->
             viewManager = GridLayoutManager(context, 3)
