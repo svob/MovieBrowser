@@ -1,32 +1,34 @@
 package cz.svobodaf.moviebrowser.model
 
 import com.squareup.moshi.Json
+import cz.svobodaf.moviebrowser.model.adapter.ISparseArrayItem
 
 data class MovieListItem(@field:Json(name = "overview")
-                 val overview: String = "",
+                 var overview: String = "",
                          @field:Json(name = "original_language")
-                 val originalLanguage: String = "",
+                 var originalLanguage: String = "",
                          @field:Json(name = "original_title")
-                 val originalTitle: String = "",
+                 var originalTitle: String = "",
                          @field:Json(name = "video")
-                 val video: Boolean = false,
+                 var video: Boolean = false,
                          @field:Json(name = "title")
-                 val title: String = "",
+                 var title: String = "",
                          @field:Json(name = "genre_ids")
-                 val genreIds: List<Int>?,
+                 var genreIds: List<Int>? = ArrayList(),
                          @field:Json(name = "poster_path")
-                 val posterPath: String = "",
+                 var posterPath: String = "",
                          @field:Json(name = "backdrop_path")
-                 val backdropPath: String = "",
+                 var backdropPath: String = "",
                          @field:Json(name = "release_date")
-                 val releaseDate: String = "",
+                 var releaseDate: String = "",
                          @field:Json(name = "vote_average")
-                 val voteAverage: Double = 0.0,
+                 var voteAverage: Double = 0.0,
                          @field:Json(name = "popularity")
-                 val popularity: Double = 0.0,
+                 var popularity: Double = 0.0,
                          @field:Json(name = "id")
-                 val id: Int = 0,
+                 override var id: Int = 0,
                          @field:Json(name = "adult")
-                 val adult: Boolean = false,
+                 var adult: Boolean = false,
                          @field:Json(name = "vote_count")
-                 val voteCount: Int = 0)
+                 var voteCount: Int = 0
+) : ISparseArrayItem
