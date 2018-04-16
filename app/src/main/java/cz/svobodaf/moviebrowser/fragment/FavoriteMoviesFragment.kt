@@ -19,7 +19,7 @@ class FavoriteMoviesFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
                 FavoriteMoviesFragment().apply {
                 }
     }

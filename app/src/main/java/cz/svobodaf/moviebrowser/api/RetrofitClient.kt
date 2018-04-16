@@ -1,5 +1,6 @@
 package cz.svobodaf.moviebrowser.api
 
+import com.squareup.moshi.Moshi
 import cz.svobodaf.moviebrowser.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -8,7 +9,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object RetrofitClient {
 
     val client = create()
-
 
     private fun create(): Retrofit {
         val httpClient = OkHttpClient().newBuilder().addInterceptor { chain ->

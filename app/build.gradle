@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -15,6 +14,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\""
+        buildConfigField "String", "API_BASE_IMAGE_URL", "\"http://image.tmdb.org/t/p/\""
         buildConfigField "String", "API_KEY", "\"c508a03db3094ebc3af4f909ad346037\""
     }
     buildTypes {
@@ -37,6 +37,8 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
+    implementation 'com.squareup.moshi:moshi-adapters:1.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
