@@ -14,7 +14,11 @@ import cz.svobodaf.moviebrowser.BuildConfig
 import cz.svobodaf.moviebrowser.R
 import cz.svobodaf.moviebrowser.model.MovieListItem
 
-class MovieListAdapter(var dataSet: List<MovieListItem>, val context: Context) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+class MovieListAdapter(
+        private var dataSet: List<MovieListItem>,
+        private val context: Context,
+        private val clickListener: (movie: MovieListItem) -> Unit
+) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.movie_image)
@@ -28,6 +32,7 @@ class MovieListAdapter(var dataSet: List<MovieListItem>, val context: Context) :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = dataSet[position]
+        holder.itemView.setOnClickListener { clickListener(movie) }
 
         val options = RequestOptions()
                 .centerCrop()

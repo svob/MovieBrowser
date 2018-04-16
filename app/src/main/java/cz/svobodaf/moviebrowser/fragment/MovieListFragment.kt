@@ -5,6 +5,7 @@ import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import cz.svobodaf.moviebrowser.R
+import cz.svobodaf.moviebrowser.activity.DetailActivity
 import cz.svobodaf.moviebrowser.list.MovieListAdapter
 import cz.svobodaf.moviebrowser.viewmodel.MovieListViewModel
 import kotlinx.android.synthetic.main.fragment_movie_list.*
@@ -34,7 +36,13 @@ class MovieListFragment : Fragment() {
         }
 
         viewManager = GridLayoutManager(context, 3)
-        viewAdapter = MovieListAdapter(viewModel.movieList.value ?: ArrayList(), context!!)
+        viewAdapter = MovieListAdapter(
+                viewModel.movieList.value ?: ArrayList(),
+                context!!,
+                {
+                    DetailActivity.start(context as Context,it)
+                }
+        )
 
         recycler_view.apply {
             setHasFixedSize(true)
