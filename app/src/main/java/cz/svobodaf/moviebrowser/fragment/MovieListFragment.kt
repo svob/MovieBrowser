@@ -37,10 +37,13 @@ class MovieListFragment : Fragment() {
         context?.let { context ->
             viewManager = GridLayoutManager(context, 3)
             viewAdapter = MovieListAdapter(
-                    viewModel.movieList.value ?: ArrayList(),
+                    viewModel.movieList.value?.toMutableList() ?: ArrayList(),
                     context,
                     { movie, holder ->
                         DetailActivity.start(context, movie, activity, holder.image)
+                    },
+                    { page ->
+                        viewModel.init(type!!, page)
                     }
             )
         }
@@ -60,7 +63,7 @@ class MovieListFragment : Fragment() {
     private fun attachObservers() {
         viewModel.movieList.observe(this, Observer {
             it?.let {
-                viewAdapter.setData(it)
+                viewAdapter.addData(it)
             }
         })
     }

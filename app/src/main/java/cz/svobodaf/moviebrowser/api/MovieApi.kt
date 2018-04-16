@@ -15,6 +15,7 @@ interface MovieApi {
     fun getTopRated(@Query("page") page: Int): Call<TopRatedResponse>
 
     companion object {
+        const val PAGE_SIZE = 20
         val api = RetrofitClient.client.create(MovieApi::class.java)
     }
 }

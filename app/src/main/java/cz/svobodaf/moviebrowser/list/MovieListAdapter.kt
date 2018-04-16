@@ -12,12 +12,14 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import cz.svobodaf.moviebrowser.BuildConfig
 import cz.svobodaf.moviebrowser.R
+import cz.svobodaf.moviebrowser.api.MovieApi
 import cz.svobodaf.moviebrowser.model.MovieListItem
 
 class MovieListAdapter(
-        private var dataSet: List<MovieListItem>,
+        private var dataSet: MutableList<MovieListItem>,
         private val context: Context,
-        private val clickListener: (movie: MovieListItem, holder: MovieViewHolder) -> Unit
+        private val clickListener: (movie: MovieListItem, holder: MovieViewHolder) -> Unit,
+        private val loadMoreListener: (dataSetSize: Int) -> Unit = {}
 ) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,12 +48,16 @@ class MovieListAdapter(
                 .into(holder.image)
 
         holder.title.text = movie.title
+
+        if ((position+1) == dataSet.size) {
+            loadMoreListener(dataSet.size / MovieApi.PAGE_SIZE + 1)
+        }
     }
 
     override fun getItemCount() = dataSet.size
 
-    fun setData(data: List<MovieListItem>) {
-        dataSet = data
+    fun addData(data: List<MovieListItem>) {
+        dataSet.addAll(data)
         notifyDataSetChanged()
     }
 }

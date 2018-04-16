@@ -13,22 +13,17 @@ import retrofit2.Response
 
 class MovieListViewModel : ViewModel() {
     var movieList: MutableLiveData<List<MovieListItem>> = MutableLiveData()
-    var pf = 1
 
-    init {
-        pf = 2
-    }
-
-    fun init(type: String) {
+    fun init(type: String, page: Int = 1) {
         if (type == ARG_LIST_TYPE_POPULAR) {
-            updateMovieListPopular()
+            updateMovieListPopular(page)
         } else if (type == ARG_LIST_TYPE_TOP_RANK) {
-            updateMovieListTop()
+            updateMovieListTop(page)
         }
     }
 
-    private fun updateMovieListPopular() {
-        val call = MovieApi.api.getPopularMovies(1)
+    private fun updateMovieListPopular(page: Int) {
+        val call = MovieApi.api.getPopularMovies(page)
         call.enqueue(object: Callback<PopularResponse> {
             override fun onFailure(call: Call<PopularResponse>?, t: Throwable?) {
                 Log.e("MovieListViewModel", "Failed to make api call", t)
@@ -42,8 +37,8 @@ class MovieListViewModel : ViewModel() {
         })
     }
 
-    private fun updateMovieListTop() {
-        val call = MovieApi.api.getTopRated(1)
+    private fun updateMovieListTop(page: Int) {
+        val call = MovieApi.api.getTopRated(page)
         call.enqueue(object: Callback<TopRatedResponse> {
             override fun onFailure(call: Call<TopRatedResponse>?, t: Throwable?) {
                 Log.e("MovieListViewModel", "Failed to make api call", t)
