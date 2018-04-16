@@ -5,7 +5,6 @@ import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -35,14 +34,14 @@ class MovieListFragment : Fragment() {
             viewModel.init(type!!)
         }
 
-        viewManager = GridLayoutManager(context, 3)
-        viewAdapter = MovieListAdapter(
-                viewModel.movieList.value ?: ArrayList(),
-                context!!,
-                {
-                    DetailActivity.start(context as Context,it)
-                }
-        )
+        context?.let { context ->
+            viewManager = GridLayoutManager(context, 3)
+            viewAdapter = MovieListAdapter(
+                    viewModel.movieList.value ?: ArrayList(),
+                    context,
+                    { DetailActivity.start(context, it) }
+            )
+        }
 
         recycler_view.apply {
             setHasFixedSize(true)

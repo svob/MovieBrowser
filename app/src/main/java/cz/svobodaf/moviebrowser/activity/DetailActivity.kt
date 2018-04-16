@@ -32,6 +32,7 @@ class DetailActivity : BaseActivity() {
         movie.releaseDate = intent.getStringExtra(EXTRA_MOVIE_DATE)
         movie.voteAverage = intent.getDoubleExtra(EXTRA_MOVIE_RATING, 0.0)
         movie.overview = intent.getStringExtra(EXTRA_MOVIE_DESC)
+        movie.backdropPath = intent.getStringExtra(EXTRA_MOVIE_IMAGE_PATH)
 
         movie_title.text = movie.title
         movie_date.text = movie.releaseDate
