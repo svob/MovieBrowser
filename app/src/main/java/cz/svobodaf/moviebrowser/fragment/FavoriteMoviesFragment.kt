@@ -1,5 +1,6 @@
 package cz.svobodaf.moviebrowser.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -12,7 +13,7 @@ import cz.svobodaf.moviebrowser.Preferences
 import cz.svobodaf.moviebrowser.R
 import cz.svobodaf.moviebrowser.activity.DetailActivity
 import cz.svobodaf.moviebrowser.list.MovieListAdapter
-import cz.svobodaf.moviebrowser.model.MovieListItem
+import cz.svobodaf.moviebrowser.toList
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 
 class FavoriteMoviesFragment : Fragment() {
@@ -25,18 +26,13 @@ class FavoriteMoviesFragment : Fragment() {
         context?.let { context ->
             viewManager = GridLayoutManager(context, 3)
 
-            val movies = Preferences(context).favoriteMovies
-            val movieList = ArrayList<MovieListItem>()
-            for (i in 0 until movies.size()) {
-                val key = movies.keyAt(i)
-                movieList.add(movies[key])
-            }
+            val movies = Preferences(context).favoriteMovies.toList()
 
             viewAdapter = MovieListAdapter(
-                    movieList,
+                    movies.toMutableList(),
                     context,
                     { movie, holder ->
-                        DetailActivity.start(context, movie, activity, holder.image)
+                        DetailActivity.startForResult(this, movie, activity, holder.image)
                     }
             )
         }
@@ -51,6 +47,10 @@ class FavoriteMoviesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie_list, container, false)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        viewAdapter.setData(Preferences(context!!).favoriteMovies.toList())
     }
 
     companion object {

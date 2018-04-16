@@ -7,6 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.SparseArray
@@ -109,7 +110,6 @@ class DetailActivity : BaseActivity() {
         const val EXTRA_MOVIE_DESC = "MOVIE_DESC"
         const val EXTRA_MOVIE_IMAGE_PATH = "MOVIE_IMAGE_PATH"
 
-
         fun start(parent: Context, movie: MovieListItem, activity: Activity? = null, sharedView: View) {
             val intent = Intent(parent, DetailActivity::class.java)
             intent.putExtra(EXTRA_MOVIE_ID, movie.id)
@@ -128,6 +128,27 @@ class DetailActivity : BaseActivity() {
                 parent.startActivity(intent, options.toBundle())
             } else {
                 parent.startActivity(intent)
+            }
+        }
+
+        fun startForResult(parent: Fragment, movie: MovieListItem, activity: Activity? = null, sharedView: View) {
+            val intent = Intent(parent.context, DetailActivity::class.java)
+            intent.putExtra(EXTRA_MOVIE_ID, movie.id)
+            intent.putExtra(EXTRA_MOVIE_TITLE, movie.title)
+            intent.putExtra(EXTRA_MOVIE_DATE, movie.releaseDate)
+            intent.putExtra(EXTRA_MOVIE_RATING, movie.voteAverage)
+            intent.putExtra(EXTRA_MOVIE_DESC, movie.overview)
+            intent.putExtra(EXTRA_MOVIE_IMAGE_PATH, movie.backdropPath)
+
+            if (activity != null) {
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        activity,
+                        sharedView,
+                        "movie_image"
+                )
+                parent.startActivityForResult(intent, 1, options.toBundle())
+            } else {
+                parent.startActivityForResult(intent, 1)
             }
         }
     }

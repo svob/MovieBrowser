@@ -60,4 +60,9 @@ class MovieListAdapter(
         dataSet.addAll(data)
         notifyDataSetChanged()
     }
+
+    fun setData(data: List<MovieListItem>) {
+        dataSet = data.toMutableList()
+        notifyDataSetChanged()
+    }
 }
