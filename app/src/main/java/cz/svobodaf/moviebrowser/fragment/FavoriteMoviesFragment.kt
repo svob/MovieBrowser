@@ -35,7 +35,9 @@ class FavoriteMoviesFragment : Fragment() {
             viewAdapter = MovieListAdapter(
                     movieList,
                     context,
-                    { DetailActivity.start(context, it) }
+                    { movie, holder ->
+                        DetailActivity.start(context, movie, activity, holder.image)
+                    }
             )
         }
 

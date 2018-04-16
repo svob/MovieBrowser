@@ -39,7 +39,9 @@ class MovieListFragment : Fragment() {
             viewAdapter = MovieListAdapter(
                     viewModel.movieList.value ?: ArrayList(),
                     context,
-                    { DetailActivity.start(context, it) }
+                    { movie, holder ->
+                        DetailActivity.start(context, movie, activity, holder.image)
+                    }
             )
         }
 

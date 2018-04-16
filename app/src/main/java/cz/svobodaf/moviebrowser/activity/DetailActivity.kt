@@ -1,15 +1,22 @@
 package cz.svobodaf.moviebrowser.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.SparseArray
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.request.RequestOptions
+import cz.svobodaf.moviebrowser.BuildConfig
 import cz.svobodaf.moviebrowser.Preferences
 import cz.svobodaf.moviebrowser.R
 import cz.svobodaf.moviebrowser.model.MovieListItem
@@ -38,6 +45,17 @@ class DetailActivity : BaseActivity() {
         movie_date.text = movie.releaseDate
         movie_rating.text = movie.voteAverage.toString()
         movie_description.text = movie.overview
+
+        val options = RequestOptions()
+                .centerCrop()
+                .priority(Priority.HIGH)
+
+        Glide
+                .with(this)
+                .asBitmap()
+                .load(BuildConfig.API_BASE_IMAGE_URL + "w300/" + movie.backdropPath)
+                .apply(options)
+                .into(movie_image)
     }
 
     override fun getContentLayoutResId() = R.layout.activity_detail
@@ -61,7 +79,7 @@ class DetailActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                supportFinishAfterTransition()
                 true
             }
             R.id.favorites -> {
@@ -92,7 +110,7 @@ class DetailActivity : BaseActivity() {
         const val EXTRA_MOVIE_IMAGE_PATH = "MOVIE_IMAGE_PATH"
 
 
-        fun start(parent: Context, movie: MovieListItem) {
+        fun start(parent: Context, movie: MovieListItem, activity: Activity? = null, sharedView: View) {
             val intent = Intent(parent, DetailActivity::class.java)
             intent.putExtra(EXTRA_MOVIE_ID, movie.id)
             intent.putExtra(EXTRA_MOVIE_TITLE, movie.title)
@@ -100,7 +118,17 @@ class DetailActivity : BaseActivity() {
             intent.putExtra(EXTRA_MOVIE_RATING, movie.voteAverage)
             intent.putExtra(EXTRA_MOVIE_DESC, movie.overview)
             intent.putExtra(EXTRA_MOVIE_IMAGE_PATH, movie.backdropPath)
-            parent.startActivity(intent)
+
+            if (activity != null) {
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        activity,
+                        sharedView,
+                        "movie_image"
+                )
+                parent.startActivity(intent, options.toBundle())
+            } else {
+                parent.startActivity(intent)
+            }
         }
     }
 }
