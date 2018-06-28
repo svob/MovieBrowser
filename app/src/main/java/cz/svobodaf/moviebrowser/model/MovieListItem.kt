@@ -1,8 +1,11 @@
 package cz.svobodaf.moviebrowser.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import cz.svobodaf.moviebrowser.model.adapter.ISparseArrayItem
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MovieListItem(@field:Json(name = "overview")
                  var overview: String = "",
                          @field:Json(name = "original_language")
@@ -31,4 +34,4 @@ data class MovieListItem(@field:Json(name = "overview")
                  var adult: Boolean = false,
                          @field:Json(name = "vote_count")
                  var voteCount: Int = 0
-) : ISparseArrayItem
+) : ISparseArrayItem, Parcelable

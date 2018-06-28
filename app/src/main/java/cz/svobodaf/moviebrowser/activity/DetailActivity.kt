@@ -28,22 +28,17 @@ class DetailActivity : BaseActivity() {
 
     private var favMenuItem: MenuItem? = null
     private lateinit var favMovies: SparseArray<MovieListItem>
-    private val movie = MovieListItem()
+    private lateinit var movie: MovieListItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         favMovies = Preferences(this).favoriteMovies
 
-        movie.id = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        movie.title = intent.getStringExtra(EXTRA_MOVIE_TITLE)
-        movie.releaseDate = intent.getStringExtra(EXTRA_MOVIE_DATE)
-        movie.voteAverage = intent.getDoubleExtra(EXTRA_MOVIE_RATING, 0.0)
-        movie.overview = intent.getStringExtra(EXTRA_MOVIE_DESC)
-        movie.backdropPath = intent.getStringExtra(EXTRA_MOVIE_IMAGE_PATH)
+        movie = intent.getParcelableExtra(EXTRA_MOVIE)
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setTitle(movie.title)
+            title = movie.title
         }
 
         movie_title.text = movie.title
@@ -107,21 +102,11 @@ class DetailActivity : BaseActivity() {
     }
 
     companion object {
-        const val EXTRA_MOVIE_ID = "MOVIE_ID"
-        const val EXTRA_MOVIE_TITLE = "MOVIE_TITLE"
-        const val EXTRA_MOVIE_DATE = "MOVIE_DATE"
-        const val EXTRA_MOVIE_RATING = "MOVIE_RATING"
-        const val EXTRA_MOVIE_DESC = "MOVIE_DESC"
-        const val EXTRA_MOVIE_IMAGE_PATH = "MOVIE_IMAGE_PATH"
+        const val EXTRA_MOVIE = "MOVIE"
 
         fun start(parent: Context, movie: MovieListItem, activity: Activity? = null, sharedView: View) {
             val intent = Intent(parent, DetailActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE_ID, movie.id)
-            intent.putExtra(EXTRA_MOVIE_TITLE, movie.title)
-            intent.putExtra(EXTRA_MOVIE_DATE, movie.releaseDate)
-            intent.putExtra(EXTRA_MOVIE_RATING, movie.voteAverage)
-            intent.putExtra(EXTRA_MOVIE_DESC, movie.overview)
-            intent.putExtra(EXTRA_MOVIE_IMAGE_PATH, movie.backdropPath)
+            intent.putExtra(EXTRA_MOVIE, movie)
 
             if (activity != null) {
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -137,12 +122,7 @@ class DetailActivity : BaseActivity() {
 
         fun startForResult(parent: Fragment, movie: MovieListItem, activity: Activity? = null, sharedView: View) {
             val intent = Intent(parent.context, DetailActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE_ID, movie.id)
-            intent.putExtra(EXTRA_MOVIE_TITLE, movie.title)
-            intent.putExtra(EXTRA_MOVIE_DATE, movie.releaseDate)
-            intent.putExtra(EXTRA_MOVIE_RATING, movie.voteAverage)
-            intent.putExtra(EXTRA_MOVIE_DESC, movie.overview)
-            intent.putExtra(EXTRA_MOVIE_IMAGE_PATH, movie.backdropPath)
+            intent.putExtra(EXTRA_MOVIE, movie)
 
             if (activity != null) {
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
