@@ -30,7 +30,7 @@ class MovieListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, ViewModelProvider.AndroidViewModelFactory(Application())).get(MovieListViewModel::class.java)
         attachObservers()
 
-        val type = arguments?.getString(ARG_FRAGMENT_TYPE, MovieListViewModel.ARG_LIST_TYPE_POPULAR)
+        val type = MovieListFragmentArgs.fromBundle(arguments).fragmenT_TYPE
         when (type) {
             MovieListViewModel.ARG_LIST_TYPE_POPULAR -> (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.nav_news)
             MovieListViewModel.ARG_LIST_TYPE_TOP_RANK -> (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.nav_top_ranked)
@@ -72,16 +72,5 @@ class MovieListFragment : Fragment() {
                 viewAdapter.addData(it)
             }
         })
-    }
-
-    companion object {
-        val ARG_FRAGMENT_TYPE = "FRAGMENT_TYPE"
-
-        fun newInstance(type: String) =
-                MovieListFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_FRAGMENT_TYPE, type)
-                    }
-                }
     }
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/nav_news">
+
+    <fragment
+        android:id="@+id/nav_news"
+        android:name="cz.svobodaf.moviebrowser.fragment.MovieListFragment"
+        android:label="fragment_movie_list"
+        tools:layout="@layout/fragment_movie_list" >
+        <argument
+            android:name="FRAGMENT_TYPE"
+            android:defaultValue="LIST_TYPE_POPULAR"
+            app:type="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_top_rank"
+        android:name="cz.svobodaf.moviebrowser.fragment.MovieListFragment"
+        android:label="fragment_movie_list"
+        tools:layout="@layout/fragment_movie_list" >
+        <argument
+            android:name="FRAGMENT_TYPE"
+            android:defaultValue="LIST_TYPE_TOP_RANK"
+            app:type="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorites"
+        android:name="cz.svobodaf.moviebrowser.fragment.FavoriteMoviesFragment"
+        android:label="FavoriteMoviesFragment" ></fragment>
+</navigation>
