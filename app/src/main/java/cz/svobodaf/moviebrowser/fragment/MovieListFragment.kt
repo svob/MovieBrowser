@@ -6,13 +6,8 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 
 import cz.svobodaf.moviebrowser.R
 import cz.svobodaf.moviebrowser.activity.DetailActivity
@@ -20,7 +15,7 @@ import cz.svobodaf.moviebrowser.list.MovieListAdapter
 import cz.svobodaf.moviebrowser.viewmodel.MovieListViewModel
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 
-class MovieListFragment : Fragment() {
+class MovieListFragment : BaseFragment() {
     private lateinit var  viewModel: MovieListViewModel
     private lateinit var viewAdapter: MovieListAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -31,9 +26,16 @@ class MovieListFragment : Fragment() {
         attachObservers()
 
         val type = MovieListFragmentArgs.fromBundle(arguments).fragmenT_TYPE
-        when (type) {
-            MovieListViewModel.ARG_LIST_TYPE_POPULAR -> (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.nav_news)
-            MovieListViewModel.ARG_LIST_TYPE_TOP_RANK -> (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.nav_top_ranked)
+        val actionId = when (type) {
+            MovieListViewModel.ARG_LIST_TYPE_POPULAR -> {
+                setTitle(R.string.nav_news)
+                R.id.action_nav_news_to_detailActivity
+            }
+            MovieListViewModel.ARG_LIST_TYPE_TOP_RANK -> {
+                setTitle(R.string.nav_top_ranked)
+                R.id.action_nav_top_rank_to_detailActivity
+            }
+            else -> -1
         }
 
         if (savedInstanceState == null) {
@@ -46,6 +48,11 @@ class MovieListFragment : Fragment() {
                     viewModel.movieList.value?.toMutableList() ?: ArrayList(),
                     context,
                     { movie, holder ->
+                        // TODO: Use this where there is support for shared element transitons in navigation components https://issuetracker.google.com/issues/79665225
+//                        val bundle = Bundle().apply {
+//                            putParcelable(DetailActivity.EXTRA_MOVIE, movie)
+//                        }
+//                        Navigation.findNavController(activity as Activity, R.id.nav_host).navigate(actionId, bundle)
                         DetailActivity.start(context, movie, activity, holder.image)
                     },
                     { page ->
@@ -61,10 +68,7 @@ class MovieListFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
-    }
+    override fun getContentLayoutResId() = R.layout.fragment_movie_list
 
     private fun attachObservers() {
         viewModel.movieList.observe(this, Observer {

@@ -14,6 +14,9 @@
             android:name="FRAGMENT_TYPE"
             android:defaultValue="LIST_TYPE_POPULAR"
             app:type="string" />
+        <action
+            android:id="@+id/action_nav_news_to_detailActivity"
+            app:destination="@id/detailActivity" />
     </fragment>
     <fragment
         android:id="@+id/nav_top_rank"
@@ -24,9 +27,22 @@
             android:name="FRAGMENT_TYPE"
             android:defaultValue="LIST_TYPE_TOP_RANK"
             app:type="string" />
+        <action
+            android:id="@+id/action_nav_top_rank_to_detailActivity"
+            app:destination="@id/detailActivity" />
     </fragment>
     <fragment
         android:id="@+id/favorites"
         android:name="cz.svobodaf.moviebrowser.fragment.FavoriteMoviesFragment"
-        android:label="FavoriteMoviesFragment" ></fragment>
+        android:label="FavoriteMoviesFragment"
+        tools:layout="@layout/fragment_movie_list">
+        <action
+            android:id="@+id/action_favorites_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="cz.svobodaf.moviebrowser.activity.DetailActivity"
+        android:label="activity_detail"
+        tools:layout="@layout/activity_detail" />
 </navigation>
