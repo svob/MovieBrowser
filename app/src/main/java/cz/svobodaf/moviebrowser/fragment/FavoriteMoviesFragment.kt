@@ -45,7 +45,9 @@ class FavoriteMoviesFragment : BaseFragment() {
     override fun getContentLayoutResId() = R.layout.fragment_movie_list
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        viewAdapter.setData(Preferences(context!!).favoriteMovies.toList())
+        context?.let {
+            viewAdapter.setData(Preferences(it).favoriteMovies.toList())
+        }
     }
 
     companion object {

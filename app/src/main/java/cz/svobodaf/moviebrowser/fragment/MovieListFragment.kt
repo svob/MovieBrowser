@@ -28,7 +28,7 @@ class MovieListFragment : BaseFragment() {
         val type = MovieListFragmentArgs.fromBundle(arguments).fragmenT_TYPE
         val actionId = when (type) {
             MovieListViewModel.ARG_LIST_TYPE_POPULAR -> {
-                setTitle(R.string.nav_news)
+                setTitle(R.string.nav_news) // TODO: setup toolbar with navigation component
                 R.id.action_nav_news_to_detailActivity
             }
             MovieListViewModel.ARG_LIST_TYPE_TOP_RANK -> {
@@ -39,7 +39,7 @@ class MovieListFragment : BaseFragment() {
         }
 
         if (savedInstanceState == null) {
-            viewModel.init(type!!)
+            viewModel.init(type)
         }
 
         context?.let { context ->
@@ -56,7 +56,7 @@ class MovieListFragment : BaseFragment() {
                         DetailActivity.start(context, movie, activity, holder.image)
                     },
                     { page ->
-                        viewModel.init(type!!, page)
+                        viewModel.init(type, page)
                     }
             )
         }

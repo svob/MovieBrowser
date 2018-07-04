@@ -18,7 +18,7 @@ class Preferences(context: Context) {
             val adapter = moshi.adapter<SparseArray<MovieListItem>>(
                     Types.newParameterizedType(SparseArray::class.java, MovieListItem::class.java)
             )
-            return adapter.fromJson(prefs.getString(MOVIE_LIST, "[]"))!!
+            return adapter.fromJson(prefs.getString(MOVIE_LIST, "[]")) ?: SparseArray()
         }
     set(value) {
         val moshi = Moshi.Builder().add(SparseArrayJsonAdapter.Factory).build()
