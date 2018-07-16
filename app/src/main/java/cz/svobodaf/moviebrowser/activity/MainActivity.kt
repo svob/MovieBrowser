@@ -2,7 +2,6 @@ package cz.svobodaf.moviebrowser.activity
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -26,21 +25,7 @@ class MainActivity : BaseActivity() {
 
     override fun getToolbar(): Toolbar? = toolbar
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onBackPressed() {
-        if (navController.currentDestination.id != R.id.nav_news) {
-            navController.navigateUp()
-        } else {
-            super.onBackPressed()
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
     }
 }
