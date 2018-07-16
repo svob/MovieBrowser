@@ -19,8 +19,6 @@ class FavoriteMoviesFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setTitle(R.string.nav_favorites)
-
         context?.let { context ->
             viewManager = GridLayoutManager(context, 3)
 

@@ -28,11 +28,9 @@ class MovieListFragment : BaseFragment() {
         val type = MovieListFragmentArgs.fromBundle(arguments).fragmenT_TYPE
         val actionId = when (type) {
             MovieListViewModel.ARG_LIST_TYPE_POPULAR -> {
-                setTitle(R.string.nav_news) // TODO: setup toolbar with navigation component
                 R.id.action_nav_news_to_detailActivity
             }
             MovieListViewModel.ARG_LIST_TYPE_TOP_RANK -> {
-                setTitle(R.string.nav_top_ranked)
                 R.id.action_nav_top_rank_to_detailActivity
             }
             else -> -1

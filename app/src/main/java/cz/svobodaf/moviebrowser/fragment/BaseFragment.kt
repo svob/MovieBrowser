@@ -13,13 +13,5 @@ abstract class BaseFragment : Fragment() {
         return if (getContentLayoutResId() != 0) inflater.inflate(getContentLayoutResId(), container, false) else null
     }
 
-    protected fun setTitle(titleResId: Int) {
-        (activity as AppCompatActivity).supportActionBar?.setTitle(titleResId)
-    }
-
-    protected fun setTitle(title: String) {
-        (activity as AppCompatActivity).supportActionBar?.setTitle(title)
-    }
-
     protected abstract fun getContentLayoutResId(): Int
 }
