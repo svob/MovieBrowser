@@ -12,7 +12,7 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import cz.svobodaf.moviebrowser.BuildConfig
 import cz.svobodaf.moviebrowser.R
-import cz.svobodaf.moviebrowser.api.MovieApi
+import cz.svobodaf.moviebrowser.data.api.MovieApi
 import cz.svobodaf.moviebrowser.model.MovieListItem
 
 class MovieListAdapter(

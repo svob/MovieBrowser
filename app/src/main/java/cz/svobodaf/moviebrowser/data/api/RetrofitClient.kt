@@ -1,6 +1,5 @@
-package cz.svobodaf.moviebrowser.api
+package cz.svobodaf.moviebrowser.data.api
 
-import com.squareup.moshi.Moshi
 import cz.svobodaf.moviebrowser.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

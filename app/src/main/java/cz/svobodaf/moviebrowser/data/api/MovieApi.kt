@@ -1,4 +1,4 @@
-package cz.svobodaf.moviebrowser.api
+package cz.svobodaf.moviebrowser.data.api
 
 import cz.svobodaf.moviebrowser.model.PopularResponse
 import cz.svobodaf.moviebrowser.model.TopRatedResponse

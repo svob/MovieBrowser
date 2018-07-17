@@ -23,9 +23,14 @@ class MovieListFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, ViewModelProvider.AndroidViewModelFactory(Application())).get(MovieListViewModel::class.java)
-        attachObservers()
 
         val type = MovieListFragmentArgs.fromBundle(arguments).fragmenT_TYPE
+        if (savedInstanceState == null) {
+            viewModel.init(type)
+        }
+
+        attachObservers()
+
         val actionId = when (type) {
             MovieListViewModel.ARG_LIST_TYPE_POPULAR -> {
                 R.id.action_nav_news_to_detailActivity
@@ -34,10 +39,6 @@ class MovieListFragment : BaseFragment() {
                 R.id.action_nav_top_rank_to_detailActivity
             }
             else -> -1
-        }
-
-        if (savedInstanceState == null) {
-            viewModel.init(type)
         }
 
         context?.let { context ->
